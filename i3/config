@@ -124,6 +124,10 @@ assign [class="Pidgin"] 4
 assign [class="Xchat"] 4
 assign [class="Skype"] 5
 
+bindsym $mod+u border toggle
+for_window [class="(?i)firefox"] border none
+for_window [class="(?i)chrome"] border none
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
