@@ -1,3 +1,7 @@
+(use-package helm-cscope
+	     :init)
+(use-package xcscope
+	     :init)
 (use-package company-c-headers
   :init
   (add-to-list 'company-backends 'company-c-headers)
@@ -16,14 +20,22 @@
 ;; “user”: When you want to define your own style
 (setq c-default-style "linux")
 (use-package cc-mode
-  :init
-  (require 'cc-mode)
-  (require 'company)
-  (setq company-minimum-prefix-length 1)
-
-  (define-key c-mode-map (kbd "C-c C-j") 'xref-find-definitions)
-  (setq-default c-basic-offset 8 tab-width 8 indent-tabs-mode t)
-  (setq show-trailing-whitespace t)
+	:bind (
+	       ("C-c j"		.	xref-find-definitions)
+	       ("C-c J"		.	xref-find-definitions-other-window)
+	       ("C-c r"		.	helm-cscope-find-calling-this-function-no-prompt)
+	       ("C-c t"		.	helm-cscope-pop-mark)
+	)
+	:config
+		(require 'cc-mode)
+		(require 'company)
+		(progn
+		  (setq-default c-basic-offset 8 tab-width 8 indent-tabs-mode t)
+		  (setq show-trailing-whitespace t)
+		  (setq company-minimum-prefix-length 1)
+		  (define-key c-mode-map [tab] 'company-complete)
+		)
+	:init
 )
 
 (add-hook 'c-mode-common-hook #'clang-format+-mode)
